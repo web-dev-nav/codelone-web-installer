@@ -1,0 +1,16 @@
+vendor/
+.env
+.env.local
+.env.*.local
+node_modules/
+/coverage
+/build
+/dist
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

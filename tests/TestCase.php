@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeHive\LaravelWebInstaller\Tests;
+namespace CodeLone\LaravelWebInstaller\Tests;
 
-use CodeHive\LaravelWebInstaller\WebInstallerServiceProvider;
+use CodeLone\LaravelWebInstaller\WebInstallerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'CodeHive\\LaravelWebInstaller\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'CodeLone\\LaravelWebInstaller\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

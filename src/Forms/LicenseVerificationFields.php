@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeHive\LaravelWebInstaller\Forms;
+namespace CodeLone\LaravelWebInstaller\Forms;
 
-use CodeHive\LaravelWebInstaller\Concerns\StepContract;
-use CodeHive\LaravelWebInstaller\Rules\LicenseVerificationRule;
+use CodeLone\LaravelWebInstaller\Concerns\StepContract;
+use CodeLone\LaravelWebInstaller\Rules\LicenseVerificationRule;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard\Step;
 

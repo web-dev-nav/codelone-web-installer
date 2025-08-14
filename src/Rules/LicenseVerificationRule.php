@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeHive\LaravelWebInstaller\Rules;
+namespace CodeLone\LaravelWebInstaller\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;

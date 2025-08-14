@@ -1,7 +1,7 @@
 # Laravel Web Installer
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/codehive/laravel-web-installer.svg?style=flat-square)](https://packagist.org/packages/codehive/laravel-web-installer)
-[![Total Downloads](https://img.shields.io/packagist/dt/codehive/laravel-web-installer.svg?style=flat-square)](https://packagist.org/packages/codehive/laravel-web-installer)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/codelone/laravel-web-installer.svg?style=flat-square)](https://packagist.org/packages/codelone/laravel-web-installer)
+[![Total Downloads](https://img.shields.io/packagist/dt/codelone/laravel-web-installer.svg?style=flat-square)](https://packagist.org/packages/codelone/laravel-web-installer)
 
 A beautiful and powerful web installer for Laravel applications with advanced features including license verification, database schema import, and real-time installation progress tracking.
 
@@ -29,7 +29,7 @@ A beautiful and powerful web installer for Laravel applications with advanced fe
 You can install the package via Composer:
 
 ```bash
-composer require codehive/laravel-web-installer
+composer require codelone/laravel-web-installer
 ```
 
 ## Quick Start
@@ -39,7 +39,7 @@ composer require codehive/laravel-web-installer
 After installing the package, publish the configuration (optional):
 
 ```bash
-php artisan vendor:publish --provider="CodeHive\LaravelWebInstaller\WebInstallerServiceProvider" --tag="config"
+php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --tag="config"
 ```
 
 ### 2. Environment Configuration
@@ -114,10 +114,10 @@ You can customize the installation steps by modifying the configuration:
 ```php
 // config/installer.php
 'steps' => [
-    \CodeHive\LaravelWebInstaller\Forms\ServerRequirementFields::class,
-    \CodeHive\LaravelWebInstaller\Forms\FolderPermissionStep::class,
-    \CodeHive\LaravelWebInstaller\Forms\LicenseVerificationFields::class,
-    \CodeHive\LaravelWebInstaller\Forms\CustomEnvironmentFields::class,
+    \CodeLone\LaravelWebInstaller\Forms\ServerRequirementFields::class,
+    \CodeLone\LaravelWebInstaller\Forms\FolderPermissionStep::class,
+    \CodeLone\LaravelWebInstaller\Forms\LicenseVerificationFields::class,
+    \CodeLone\LaravelWebInstaller\Forms\CustomEnvironmentFields::class,
     \Your\Custom\StepClass::class, // Add your custom steps
 ],
 ```
@@ -127,7 +127,7 @@ You can customize the installation steps by modifying the configuration:
 Create your own installation manager by implementing the `InstallationContract`:
 
 ```php
-use CodeHive\LaravelWebInstaller\Concerns\InstallationContract;
+use CodeLone\LaravelWebInstaller\Concerns\InstallationContract;
 
 class MyCustomInstallationManager implements InstallationContract
 {
@@ -218,7 +218,7 @@ Customize folder permission checks:
 Publish and customize the views:
 
 ```bash
-php artisan vendor:publish --provider="CodeHive\LaravelWebInstaller\WebInstallerServiceProvider" --tag="views"
+php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --tag="views"
 ```
 
 Views will be published to `resources/views/vendor/laravel-web-installer/`.
@@ -228,7 +228,7 @@ Views will be published to `resources/views/vendor/laravel-web-installer/`.
 Publish and customize the language files:
 
 ```bash
-php artisan vendor:publish --provider="CodeHive\LaravelWebInstaller\WebInstallerServiceProvider" --tag="translations"
+php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --tag="translations"
 ```
 
 ### Assets
@@ -236,7 +236,7 @@ php artisan vendor:publish --provider="CodeHive\LaravelWebInstaller\WebInstaller
 Publish and customize the assets:
 
 ```bash
-php artisan vendor:publish --provider="CodeHive\LaravelWebInstaller\WebInstallerServiceProvider" --tag="assets"
+php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --tag="assets"
 ```
 
 ## API Reference
@@ -292,7 +292,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [CodeHive](https://github.com/codehive)
+- [CodeLone](https://github.com/codelone)
 - [All Contributors](../../contributors)
 
 ## License
@@ -301,13 +301,13 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 ## Support
 
-- 📧 Email: support@codehive.dev
-- 💬 Discord: [Join our community](https://discord.gg/codehive)
-- 📖 Documentation: [Full documentation](https://docs.codehive.dev/laravel-web-installer)
-- 🐛 Bug Reports: [GitHub Issues](https://github.com/codehive/laravel-web-installer/issues)
+- 📧 Email: support@codelone.dev
+- 💬 Discord: [Join our community](https://discord.gg/codelone)
+- 📖 Documentation: [Full documentation](https://docs.codelone.dev/laravel-web-installer)
+- 🐛 Bug Reports: [GitHub Issues](https://github.com/codelone/laravel-web-installer/issues)
 
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://codehive.dev">CodeHive</a>
+  Made with ❤️ by <a href="https://codelone.dev">CodeLone</a>
 </p>

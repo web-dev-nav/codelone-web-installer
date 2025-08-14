@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeHive\LaravelWebInstaller\Manager;
+namespace CodeLone\LaravelWebInstaller\Manager;
 
-use CodeHive\LaravelWebInstaller\Concerns\InstallationContract;
+use CodeLone\LaravelWebInstaller\Concerns\InstallationContract;
 use Illuminate\Support\Facades\{Artisan, DB, Log};
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;

@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeHive\LaravelWebInstaller\Concerns;
+namespace CodeLone\LaravelWebInstaller\Concerns;
 
 use Filament\Forms\Components\Wizard\Step;
 

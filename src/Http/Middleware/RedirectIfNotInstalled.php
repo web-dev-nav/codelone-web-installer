@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeHive\LaravelWebInstaller\Http\Middleware;
+namespace CodeLone\LaravelWebInstaller\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\RedirectResponse;

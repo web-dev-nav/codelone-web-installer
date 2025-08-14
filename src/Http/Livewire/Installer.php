@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeHive\LaravelWebInstaller\Http\Livewire;
+namespace CodeLone\LaravelWebInstaller\Http\Livewire;
 
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Concerns\InteractsWithForms;

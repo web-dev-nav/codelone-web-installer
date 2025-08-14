@@ -15,7 +15,7 @@
     verbose="true"
 >
     <testsuites>
-        <testsuite name="CodeHive Test Suite">
+        <testsuite name="CodeLone Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

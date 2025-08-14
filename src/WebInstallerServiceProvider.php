@@ -1,10 +1,10 @@
 <?php
 
-namespace CodeHive\LaravelWebInstaller;
+namespace CodeLone\LaravelWebInstaller;
 
 use Livewire\Livewire;
-use CodeHive\LaravelWebInstaller\Http\Livewire\Installer;
-use CodeHive\LaravelWebInstaller\Http\Middleware\RedirectIfNotInstalled;
+use CodeLone\LaravelWebInstaller\Http\Livewire\Installer;
+use CodeLone\LaravelWebInstaller\Http\Middleware\RedirectIfNotInstalled;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -42,8 +42,8 @@ class WebInstallerServiceProvider extends PackageServiceProvider
     {
         // Register installation manager binding
         $this->app->bind(
-            \CodeHive\LaravelWebInstaller\Concerns\InstallationContract::class,
-            config('installer.installation_manager', \CodeHive\LaravelWebInstaller\Manager\CustomInstallationManager::class)
+            \CodeLone\LaravelWebInstaller\Concerns\InstallationContract::class,
+            config('installer.installation_manager', \CodeLone\LaravelWebInstaller\Manager\CustomInstallationManager::class)
         );
     }
 }

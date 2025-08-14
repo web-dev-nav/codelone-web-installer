@@ -1,20 +1,20 @@
 {
-    "name": "codehive/laravel-web-installer",
+    "name": "codelone/laravel-web-installer",
     "description": "Advanced web installer for Laravel applications with license verification and database schema import capabilities",
     "keywords": ["laravel", "installer", "license", "schema-import", "web-installer", "setup", "wizard"],
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "CodeHive",
-            "email": "info@codehive.dev",
-            "homepage": "https://codehive.dev"
+            "name": "CodeLone",
+            "email": "info@codelone.dev",
+            "homepage": "https://codelone.dev"
         }
     ],
-    "homepage": "https://github.com/codehive/laravel-web-installer",
+    "homepage": "https://github.com/codelone/laravel-web-installer",
     "support": {
-        "issues": "https://github.com/codehive/laravel-web-installer/issues",
-        "source": "https://github.com/codehive/laravel-web-installer"
+        "issues": "https://github.com/codelone/laravel-web-installer/issues",
+        "source": "https://github.com/codelone/laravel-web-installer"
     },
     "require": {
         "php": "^8.1|^8.2|^8.3",
@@ -32,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "CodeHive\\LaravelWebInstaller\\": "src/"
+            "CodeLone\\LaravelWebInstaller\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CodeHive\\LaravelWebInstaller\\Tests\\": "tests/"
+            "CodeLone\\LaravelWebInstaller\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -48,7 +48,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "CodeHive\\LaravelWebInstaller\\WebInstallerServiceProvider"
+                "CodeLone\\LaravelWebInstaller\\WebInstallerServiceProvider"
             ]
         }
     },

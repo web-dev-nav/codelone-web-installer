@@ -7,15 +7,15 @@ return [
     'user_model' => \App\Models\User::class,
 
     'steps' => [
-        \CodeHive\LaravelWebInstaller\Forms\ServerRequirementFields::class,
-        \CodeHive\LaravelWebInstaller\Forms\FolderPermissionStep::class,
-        \CodeHive\LaravelWebInstaller\Forms\LicenseVerificationFields::class,
-        \CodeHive\LaravelWebInstaller\Forms\CustomEnvironmentFields::class,
+        \CodeLone\LaravelWebInstaller\Forms\ServerRequirementFields::class,
+        \CodeLone\LaravelWebInstaller\Forms\FolderPermissionStep::class,
+        \CodeLone\LaravelWebInstaller\Forms\LicenseVerificationFields::class,
+        \CodeLone\LaravelWebInstaller\Forms\CustomEnvironmentFields::class,
     ],
 
     'redirect_route' => "welcome",
 
-    'installation_manager' => \CodeHive\LaravelWebInstaller\Manager\CustomInstallationManager::class,
+    'installation_manager' => \CodeLone\LaravelWebInstaller\Manager\CustomInstallationManager::class,
 
     /*
     |--------------------------------------------------------------------------

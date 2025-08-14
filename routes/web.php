@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use CodeHive\LaravelWebInstaller\Http\Livewire\Installer;
+use CodeLone\LaravelWebInstaller\Http\Livewire\Installer;
 
 Route::get('installer', Installer::class)->name('installer')
     ->middleware(['web']);

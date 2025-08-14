@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeHive\LaravelWebInstaller\Tests\Feature;
+namespace CodeLone\LaravelWebInstaller\Tests\Feature;
 
-use CodeHive\LaravelWebInstaller\Tests\TestCase;
+use CodeLone\LaravelWebInstaller\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class InstallerTest extends TestCase

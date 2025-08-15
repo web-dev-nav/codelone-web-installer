@@ -29,10 +29,10 @@ A beautiful and powerful web installer for Laravel applications with advanced fe
 You can install the package via Composer:
 
 ```bash
-composer require codelone/laravel-web-installer:dev-main --with-all-dependencies
+composer require codelone/laravel-web-installer
 ```
 
-> **Note:** Currently supports Laravel 10, 11, and 12 with PHP 8.1-8.4
+> **Note:** Supports Laravel 8, 9, 10, 11, and 12 with PHP 7.4+
 
 ## Quick Start
 
@@ -69,7 +69,7 @@ INSTALLER_PRODUCT_ID=1
 
 ### 3. Application Protection
 
-Add installation protection to your main routes:
+Add installation protection to your main routes. **Option 1:** Manual route protection:
 
 ```php
 // routes/web.php
@@ -81,13 +81,16 @@ Route::get('/', function () {
     
     return view('welcome');
 });
+```
 
-// Protect your application routes
-Route::middleware(['redirect.if.not.installed'])->group(function () {
-    // Your protected application routes here
-    Route::get('/dashboard', [DashboardController::class, 'index']);
-    // ... other routes
-});
+**Option 2:** Global middleware protection (recommended):
+
+```php
+// app/Http/Kernel.php
+protected $middleware = [
+    // ... other middleware
+    \CodeLone\LaravelWebInstaller\Http\Middleware\RedirectIfNotInstalled::class,
+];
 ```
 
 ### 4. Access the Installer
@@ -189,7 +192,7 @@ Customize server requirements:
 ```php
 // config/installer.php
 'core' => [
-    'minPhpVersion' => '8.1.0',
+    'minPhpVersion' => '7.4.0',
 ],
 
 'requirements' => [
@@ -296,7 +299,7 @@ To reinstall the package:
 ```bash
 # Remove and reinstall package
 composer remove codelone/laravel-web-installer
-composer require codelone/laravel-web-installer:dev-main --with-all-dependencies
+composer require codelone/laravel-web-installer
 
 # Republish assets
 php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --force

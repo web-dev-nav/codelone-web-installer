@@ -516,7 +516,7 @@ PHP;
         }
     }
 
-    public function redirect(): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function redirect()
     {
         try {
             // Skip Filament check entirely and go directly to configured route

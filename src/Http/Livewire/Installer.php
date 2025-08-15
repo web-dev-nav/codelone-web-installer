@@ -82,7 +82,7 @@ class Installer extends Component implements HasForms
         ];
     }
 
-    public function save(): Redirector|Application|RedirectResponse
+    public function save()
     {
         try {
             // Validate form data

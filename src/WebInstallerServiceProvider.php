@@ -12,9 +12,6 @@ class WebInstallerServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        // Register Livewire component
-        Livewire::component('advanced-web-installer', Installer::class);
-
         // Register middleware
         $this->app['router']->aliasMiddleware('redirect.if.not.installed', RedirectIfNotInstalled::class);
 
@@ -28,6 +25,11 @@ class WebInstallerServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
+        // Register Livewire component after all services are booted
+        if (class_exists(Livewire::class)) {
+            Livewire::component('advanced-web-installer', Installer::class);
+        }
+
         // Add protection to Filament panels if installed
         if (class_exists(\Filament\Facades\Filament::class)) {
             \Filament\Facades\Filament::serving(function () {

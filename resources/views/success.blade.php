@@ -77,22 +77,29 @@
             Go to Application
         </a>
         
-        @if(class_exists(\Filament\Facades\Filament::class))
-            @php
-                $filamentUrl = null;
+        @php
+            $showFilamentButton = false;
+            if (class_exists(\Filament\Facades\Filament::class)) {
                 try {
-                    $filamentUrl = \Filament\Facades\Filament::getUrl();
+                    $filamentInstance = app(\Filament\Facades\Filament::class);
+                    if ($filamentInstance && method_exists($filamentInstance, 'getUrl')) {
+                        $filamentUrl = $filamentInstance->getUrl();
+                        if ($filamentUrl) {
+                            $showFilamentButton = true;
+                        }
+                    }
                 } catch (\Exception $e) {
-                    // Filament not properly configured
+                    // Filament not available or not configured
+                    $showFilamentButton = false;
                 }
-            @endphp
-            
-            @if($filamentUrl)
-                <a href="{{ $filamentUrl }}" 
-                   class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                    Admin Panel
-                </a>
-            @endif
+            }
+        @endphp
+        
+        @if($showFilamentButton)
+            <a href="{{ $filamentUrl }}" 
+               class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                Admin Panel
+            </a>
         @endif
     </div>
     

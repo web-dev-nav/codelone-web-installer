@@ -29,17 +29,32 @@ A beautiful and powerful web installer for Laravel applications with advanced fe
 You can install the package via Composer:
 
 ```bash
-composer require codelone/laravel-web-installer
+composer require codelone/laravel-web-installer:dev-main --with-all-dependencies
 ```
+
+> **Note:** Currently supports Laravel 10, 11, and 12 with PHP 8.1-8.4
 
 ## Quick Start
 
 ### 1. Basic Setup
 
-After installing the package, publish the configuration (optional):
+After installing the package, publish the assets and configuration:
 
 ```bash
+php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider"
+```
+
+Or publish specific assets:
+
+```bash
+# Publish configuration only
 php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --tag="config"
+
+# Publish views only  
+php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --tag="views"
+
+# Force republish all assets
+php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --force
 ```
 
 ### 2. Environment Configuration
@@ -271,6 +286,42 @@ The package fires several events during installation:
 - `SchemaImported` - When database schema import completes
 - `InstallationCompleted` - When installation finishes
 - `InstallationFailed` - When installation fails
+
+## Troubleshooting
+
+### Reinstalling the Package
+
+To reinstall the package:
+
+```bash
+# Remove and reinstall package
+composer remove codelone/laravel-web-installer
+composer require codelone/laravel-web-installer:dev-main --with-all-dependencies
+
+# Republish assets
+php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --force
+```
+
+### Reset Installation
+
+To reset and run the installer again:
+
+```bash
+# Remove installation marker
+rm storage/installed
+
+# Clear caches
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+```
+
+### Common Issues
+
+- **Livewire not found**: Ensure Livewire is properly registered. Clear cache and run `php artisan package:discover`
+- **Assets not found**: Run `php artisan vendor:publish --provider="CodeLone\LaravelWebInstaller\WebInstallerServiceProvider" --force`
+- **Routes not working**: Clear route cache with `php artisan route:clear`
 
 ## Testing
 

@@ -78,14 +78,21 @@
         </a>
         
         @if(class_exists(\Filament\Facades\Filament::class))
-            @try
-                <a href="{{ \Filament\Facades\Filament::getUrl() }}" 
+            @php
+                $filamentUrl = null;
+                try {
+                    $filamentUrl = \Filament\Facades\Filament::getUrl();
+                } catch (\Exception $e) {
+                    // Filament not properly configured
+                }
+            @endphp
+            
+            @if($filamentUrl)
+                <a href="{{ $filamentUrl }}" 
                    class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
                     Admin Panel
                 </a>
-            @catch(\Exception $e)
-                <!-- Filament not properly configured -->
-            @endtry
+            @endif
         @endif
     </div>
     

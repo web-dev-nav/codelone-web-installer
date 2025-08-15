@@ -3,6 +3,7 @@
 namespace CodeLone\LaravelWebInstaller\Manager;
 
 use CodeLone\LaravelWebInstaller\Concerns\InstallationContract;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\{Artisan, DB, Log};
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -82,11 +83,11 @@ class CustomInstallationManager implements InstallationContract
 
     private function testDatabaseConnection($data): void
     {
-        $host = array_get($data, 'environment.database.host', 'localhost');
-        $port = array_get($data, 'environment.database.port', 3306);
-        $database = array_get($data, 'environment.database.name');
-        $username = array_get($data, 'environment.database.username');
-        $password = array_get($data, 'environment.database.password');
+        $host = Arr::get($data, 'environment.database.host', 'localhost');
+        $port = Arr::get($data, 'environment.database.port', 3306);
+        $database = Arr::get($data, 'environment.database.name');
+        $username = Arr::get($data, 'environment.database.username');
+        $password = Arr::get($data, 'environment.database.password');
 
         // Temporarily set database config
         config([

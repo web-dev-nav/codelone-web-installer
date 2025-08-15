@@ -9,6 +9,7 @@ use Filament\Notifications\Notification;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Log;
@@ -45,7 +46,7 @@ class Installer extends Component implements HasForms
     {
         $default = [];
         foreach (config('installer.environment.form', []) as $envKey => $config) {
-            array_set($default, 'environment.'.$envKey,
+            Arr::set($default, 'environment.'.$envKey,
                 config($config['config_key']));
         }
 

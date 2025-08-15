@@ -519,32 +519,32 @@ PHP;
     public function redirect(): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
-            // Check if Filament is available and properly configured
-            if (class_exists(\Filament\Facades\Filament::class)) {
-                $filamentUrl = \Filament\Facades\Filament::getUrl();
-                if ($filamentUrl) {
-                    return redirect()->intended($filamentUrl);
-                }
-            }
-
-            // Try configured redirect route
+            // Skip Filament check entirely and go directly to configured route
             $redirectRoute = config('installer.redirect_route', '/');
-            if ($redirectRoute && $redirectRoute !== '/') {
-                return redirect()->route($redirectRoute);
-            }
-
-            // Fallback to home
-            return redirect('/');
-        } catch (\Exception $exception) {
-            Log::info("Redirect failed, falling back to success route");
-            Log::info($exception->getMessage());
             
-            try {
-                return redirect()->route('installer.success');
-            } catch (\Exception $e) {
-                // Final fallback
+            // If redirect route is just "/", redirect to home
+            if ($redirectRoute === '/') {
                 return redirect('/');
             }
+            
+            // Try to redirect to named route
+            try {
+                if (\Illuminate\Support\Facades\Route::has($redirectRoute)) {
+                    return redirect()->route($redirectRoute);
+                }
+            } catch (\Exception $e) {
+                // Route doesn't exist, fallback to URL
+            }
+            
+            // Fallback to URL redirect
+            return redirect($redirectRoute);
+            
+        } catch (\Exception $exception) {
+            Log::info("Redirect failed, using final fallback");
+            Log::info($exception->getMessage());
+            
+            // Final fallback to home
+            return redirect('/');
         }
     }
 

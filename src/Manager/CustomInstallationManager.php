@@ -44,6 +44,10 @@ class CustomInstallationManager implements InstallationContract
                 return $this->runDefaultInstallation($data);
             }
 
+            // Ensure required config files exist
+            Log::info('Ensuring required configuration files exist...');
+            $this->ensureRequiredConfigFiles();
+            
             // Test database connection with provided credentials
             Log::info('Testing database connection...');
             $this->testDatabaseConnection($data);
@@ -399,10 +403,89 @@ class CustomInstallationManager implements InstallationContract
         return $statements;
     }
 
+    private function ensureRequiredConfigFiles(): void
+    {
+        $configPath = config_path();
+        
+        // Ensure config directory exists
+        if (!is_dir($configPath)) {
+            mkdir($configPath, 0755, true);
+            Log::info('Created config directory');
+        }
+        
+        // Ensure view.php config exists
+        $viewConfigPath = config_path('view.php');
+        if (!file_exists($viewConfigPath)) {
+            $viewConfig = <<<'PHP'
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | View Storage Paths
+    |--------------------------------------------------------------------------
+    |
+    | Most templating systems load templates from disk. Here you may specify
+    | an array of paths that should be checked for your views. Of course
+    | the usual Laravel view path has already been registered for you.
+    |
+    */
+
+    'paths' => [
+        resource_path('views'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Compiled View Path
+    |--------------------------------------------------------------------------
+    |
+    | This option determines where all the compiled Blade templates will be
+    | stored for your application. Typically, this is within the storage
+    | directory. However, as usual, you are free to change this value.
+    |
+    */
+
+    'compiled' => env(
+        'VIEW_COMPILED_PATH',
+        realpath(storage_path('framework/views'))
+    ),
+
+];
+PHP;
+            file_put_contents($viewConfigPath, $viewConfig);
+            Log::info('Created view.php configuration file');
+        }
+        
+        // Ensure storage directories exist
+        $storageDirs = [
+            'framework/cache',
+            'framework/sessions', 
+            'framework/views',
+            'logs',
+            'app'
+        ];
+        
+        foreach ($storageDirs as $dir) {
+            $fullPath = storage_path($dir);
+            if (!is_dir($fullPath)) {
+                mkdir($fullPath, 0755, true);
+                Log::info("Created storage directory: {$dir}");
+            }
+        }
+        
+        Log::info('All required configuration files and directories verified');
+    }
+
     private function runDefaultInstallation($data): bool
     {
         try {
             Log::info('Running default Laravel installation...');
+            
+            // Ensure required config files exist
+            Log::info('Ensuring required configuration files exist...');
+            $this->ensureRequiredConfigFiles();
             
             // Test database connection
             $this->testDatabaseConnection($data);

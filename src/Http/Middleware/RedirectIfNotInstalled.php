@@ -20,7 +20,10 @@ class RedirectIfNotInstalled
     public function handle(Request $request, Closure $next): Response|RedirectResponse|BinaryFileResponse
     {
         if (!$this->alreadyInstalled()) {
-            return redirect()->route("installer");
+            // Skip installer route to avoid redirect loop
+            if (!$request->routeIs('installer')) {
+                return redirect()->route("installer");
+            }
         }
 
         return $next($request);

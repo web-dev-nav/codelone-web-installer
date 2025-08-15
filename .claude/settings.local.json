@@ -1,8 +1,12 @@
 {
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
-      "Bash(mkdir:*)"
-    ]
+      "Bash(mkdir:*)",
+      "Bash(git tag:*)",
+      "Bash(git config:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "defaultMode": "acceptEdits"
   }
 }

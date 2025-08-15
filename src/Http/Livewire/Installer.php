@@ -31,8 +31,10 @@ class Installer extends Component implements HasForms
     public function mount()
     {
         if (file_exists(storage_path('installed'))) {
-            // Installation already complete, redirect to success page
-            return redirect()->route('installer.success');
+            // Installation already complete, redirect with success message
+            session()->flash('installation_success', 'Installation was already completed successfully!');
+            $installationManager = app(config('installer.installation_manager'));
+            return $installationManager->redirect();
         }
 
         $this->setDefaultValues();
@@ -90,14 +92,11 @@ class Installer extends Component implements HasForms
             $result = $installationManager->run($inputs);
 
             if ($result) {
-                Notification::make()
-                    ->title('Installation Completed Successfully!')
-                    ->body('Your application has been installed and configured.')
-                    ->success()
-                    ->send();
-                    
-                // Redirect to success page instead of direct redirect
-                return redirect()->route('installer.success');
+                // Show success notification and redirect directly
+                session()->flash('installation_success', 'Installation completed successfully! Your Laravel application is ready to use.');
+                
+                // Get redirect URL from installation manager
+                return $installationManager->redirect();
             } else {
                 Notification::make()
                     ->title('Installation Failed')

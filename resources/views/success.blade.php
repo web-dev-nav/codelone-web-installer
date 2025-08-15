@@ -1,6 +1,4 @@
-@extends('laravel-web-installer::layouts.app')
-
-@section('content')
+<x-laravel-web-installer::layouts.app>
 <div class="text-center space-y-6">
     <div class="text-6xl">🎉</div>
     
@@ -25,15 +23,38 @@
         </a>
         
         @if(class_exists(\Filament\Facades\Filament::class))
-            <a href="{{ \Filament\Facades\Filament::getUrl() }}" 
-               class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                Admin Panel
-            </a>
+            @try
+                <a href="{{ \Filament\Facades\Filament::getUrl() }}" 
+                   class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                    Admin Panel
+                </a>
+            @catch(\Exception $e)
+                <!-- Filament not properly configured -->
+            @endtry
         @endif
     </div>
     
-    <div class="text-sm text-gray-500">
+    <div class="text-sm text-gray-500 space-y-2">
         <p>Remember to secure your application by changing default passwords and reviewing security settings.</p>
+        <p id="countdown" class="font-medium">Automatically redirecting to your application in <span id="timer">5</span> seconds...</p>
     </div>
+    
+    <!-- Auto redirect after 5 seconds with countdown -->
+    <script>
+        let timeLeft = 5;
+        const timer = document.getElementById('timer');
+        const countdown = document.getElementById('countdown');
+        
+        const countdownInterval = setInterval(function() {
+            timeLeft--;
+            timer.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                countdown.textContent = 'Redirecting now...';
+                window.location.href = '{{ config("installer.redirect_route", "/") }}';
+            }
+        }, 1000);
+    </script>
 </div>
-@endsection
+</x-laravel-web-installer::layouts.app>

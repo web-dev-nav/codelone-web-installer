@@ -13,6 +13,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\HtmlString;
 use Livewire\Component;
 
@@ -29,17 +30,12 @@ class Installer extends Component implements HasForms
 
     public function mount()
     {
-        $this->setDefaultValues();
-
         if (file_exists(storage_path('installed'))) {
-            try {
-                return redirect(config('installer.redirect_route', '/'));
-            } catch (\Exception $exception) {
-                Log::info("route not found...");
-                Log::info($exception->getMessage());
-                return redirect()->route('installer.success');
-            }
+            // Installation already complete, redirect to success page
+            return redirect()->route('installer.success');
         }
+
+        $this->setDefaultValues();
     }
 
     public function setDefaultValues(): void
@@ -100,7 +96,8 @@ class Installer extends Component implements HasForms
                     ->success()
                     ->send();
                     
-                return $installationManager->redirect();
+                // Redirect to success page instead of direct redirect
+                return redirect()->route('installer.success');
             } else {
                 Notification::make()
                     ->title('Installation Failed')

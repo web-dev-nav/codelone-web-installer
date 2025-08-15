@@ -436,15 +436,32 @@ class CustomInstallationManager implements InstallationContract
     public function redirect(): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
+            // Check if Filament is available and properly configured
             if (class_exists(\Filament\Facades\Filament::class)) {
-                return redirect()->intended(\Filament\Facades\Filament::getUrl());
+                $filamentUrl = \Filament\Facades\Filament::getUrl();
+                if ($filamentUrl) {
+                    return redirect()->intended($filamentUrl);
+                }
             }
 
-            return redirect(config('installer.redirect_route', '/'));
+            // Try configured redirect route
+            $redirectRoute = config('installer.redirect_route', '/');
+            if ($redirectRoute && $redirectRoute !== '/') {
+                return redirect()->route($redirectRoute);
+            }
+
+            // Fallback to home
+            return redirect('/');
         } catch (\Exception $exception) {
-            Log::info("route not found...");
+            Log::info("Redirect failed, falling back to success route");
             Log::info($exception->getMessage());
-            return redirect()->route('installer.success');
+            
+            try {
+                return redirect()->route('installer.success');
+            } catch (\Exception $e) {
+                // Final fallback
+                return redirect('/');
+            }
         }
     }
 

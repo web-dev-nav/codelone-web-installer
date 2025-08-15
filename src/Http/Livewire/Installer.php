@@ -86,26 +86,45 @@ class Installer extends Component implements HasForms
 
     public function save(): Redirector|Application|RedirectResponse
     {
-        $inputs = $this->form->getState();
+        try {
+            // Validate form data
+            $inputs = $this->form->getState();
 
-        $installationManager = app(config('installer.installation_manager'));
-        $result = $installationManager->run($inputs);
+            $installationManager = app(config('installer.installation_manager'));
+            $result = $installationManager->run($inputs);
 
-        if ($result) {
+            if ($result) {
+                Notification::make()
+                    ->title('Installation Completed Successfully!')
+                    ->body('Your application has been installed and configured.')
+                    ->success()
+                    ->send();
+                    
+                return $installationManager->redirect();
+            } else {
+                Notification::make()
+                    ->title('Installation Failed')
+                    ->body('There was an error during installation. Please check the logs.')
+                    ->danger()
+                    ->send();
+                    
+                return back();
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Let Filament handle validation errors
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('Installation error: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            
             Notification::make()
-                ->title('Installation Completed Successfully!')
-                ->body('Your application has been installed and configured.')
-                ->success()
-                ->send();
-        } else {
-            Notification::make()
-                ->title('Installation Failed')
-                ->body('There was an error during installation. Please check the logs.')
+                ->title('Installation Error')
+                ->body('An unexpected error occurred: ' . $e->getMessage())
                 ->danger()
                 ->send();
+                
+            return back();
         }
-
-        return $installationManager->redirect();
     }
 
     public function dehydrate(): void

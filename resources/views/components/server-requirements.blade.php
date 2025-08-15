@@ -1,15 +1,32 @@
 @php
+    $requirements = $requirements ?? [];
+    $permissions = $permissions ?? [];
     $allSatisfied = true;
-    foreach ($requirements as $requirement) {
-        if (is_array($requirement)) {
-            foreach ($requirement as $req) {
-                if (!$req['satisfied']) {
-                    $allSatisfied = false;
-                    break 2;
-                }
+    
+    // Check if requirements is properly structured
+    if (!is_array($requirements)) {
+        $requirements = [];
+    }
+    
+    // Check PHP version
+    if (isset($requirements['php_version']) && !$requirements['php_version']['satisfied']) {
+        $allSatisfied = false;
+    }
+    
+    // Check extensions
+    if (isset($requirements['extensions'])) {
+        foreach ($requirements['extensions'] as $extension) {
+            if (!$extension['satisfied']) {
+                $allSatisfied = false;
+                break;
             }
-        } else {
-            if (!$requirement['satisfied']) {
+        }
+    }
+    
+    // Check permissions
+    if (is_array($permissions)) {
+        foreach ($permissions as $permission) {
+            if (!$permission['satisfied']) {
                 $allSatisfied = false;
                 break;
             }
@@ -38,13 +55,23 @@
         </h4>
         
         <div class="space-y-2">
-            <div class="flex items-center justify-between py-2 border-b">
-                <span>{{ $requirements['php_version']['name'] }}</span>
-                <div class="flex items-center gap-2">
-                    <span class="text-sm text-gray-600">Current: {{ $requirements['php_version']['current'] }}</span>
-                    <span class="text-lg">{{ $requirements['php_version']['satisfied'] ? '✅' : '❌' }}</span>
+            @if(isset($requirements['php_version']))
+                <div class="flex items-center justify-between py-2 border-b">
+                    <span>{{ $requirements['php_version']['name'] ?? 'PHP Version' }}</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-gray-600">Current: {{ $requirements['php_version']['current'] ?? PHP_VERSION }}</span>
+                        <span class="text-lg">{{ ($requirements['php_version']['satisfied'] ?? false) ? '✅' : '❌' }}</span>
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="flex items-center justify-between py-2 border-b">
+                    <span>PHP Version Check</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-gray-600">Current: {{ PHP_VERSION }}</span>
+                        <span class="text-lg">⚠️</span>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -71,17 +98,23 @@
         </h4>
         
         <div class="space-y-2">
-            @foreach ($permissions as $folder => $data)
-                <div class="flex items-center justify-between py-2 border-b">
-                    <span class="font-medium">{{ $data['name'] }}</span>
-                    <div class="flex items-center gap-3">
-                        <span class="text-sm text-gray-600">
-                            Required: {{ $data['required'] }} | Current: {{ $data['current'] }}
-                        </span>
-                        <span class="text-lg">{{ $data['satisfied'] ? '✅' : '❌' }}</span>
+            @if(is_array($permissions) && count($permissions) > 0)
+                @foreach ($permissions as $folder => $data)
+                    <div class="flex items-center justify-between py-2 border-b">
+                        <span class="font-medium">{{ $data['name'] ?? $folder }}</span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-sm text-gray-600">
+                                Required: {{ $data['required'] ?? 'N/A' }} | Current: {{ $data['current'] ?? 'N/A' }}
+                            </span>
+                            <span class="text-lg">{{ ($data['satisfied'] ?? false) ? '✅' : '❌' }}</span>
+                        </div>
                     </div>
+                @endforeach
+            @else
+                <div class="flex items-center justify-center py-4">
+                    <span class="text-gray-500">No permission checks configured</span>
                 </div>
-            @endforeach
+            @endif
         </div>
     </div>
 

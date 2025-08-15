@@ -9,6 +9,9 @@
     @filamentStyles
     @livewireStyles
     
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -40,6 +43,63 @@
             font-size: 1.1rem;
             opacity: 0.9;
             margin: 0.5rem 0 0 0;
+        }
+        
+        /* Enhanced form styling */
+        .fi-form-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .fi-wizard {
+            background: transparent;
+        }
+        
+        .fi-wizard-step {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* Step indicators */
+        .fi-wizard-step-indicator {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            color: #64748b;
+        }
+        
+        .fi-wizard-step-indicator[data-state="active"] {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+        
+        .fi-wizard-step-indicator[data-state="completed"] {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+        }
+        
+        /* Button styling */
+        .fi-btn {
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .fi-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        
+        .fi-btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
     </style>
 </head>
